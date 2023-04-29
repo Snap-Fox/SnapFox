@@ -27,12 +27,19 @@ chrome.tabs.onUpdated.addListener(async function (tabId, info) {
                     var item = featureData.js[item];
                     item = "/features/"+featureFolder+"/"+item;
                     chrome.scripting.executeScript({
-                        target : {tabId : getTabId()},
+                        target : {tabId : tabId},
                         files : [ item ],
+                        world: "MAIN"
                     })
                 }
             }
         }
     }
+    console.log("%cSF ","color: white; background:black; border-raidus:0.5em;", "Injected SnapFox API into tab: " + tab.url);
+    chrome.scripting.executeScript({
+        target : {tabId : tabId},
+        files : ["/api/main.js"],
+        world: "MAIN"
+    })
 
 });
