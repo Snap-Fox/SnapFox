@@ -1,11 +1,25 @@
+
 getFeatures();
+
+async function getThemes(){
+    let settings = (await chrome.storage.sync.get("themes")).themes || "";
+    const data = await (await fetch("/themes/index.json")).json();
+    for(var theme in data){
+        var theme = data[theme];
+        var div = document.getElementById('themes');
+        
+        var themeFolder = theme.folder;
+        const themeData = await (await fetch("/themes/"+themeFolder+"/data.json")).json();
+
+
+    }
+}
 
 async function getFeatures() {
     let settings = (await chrome.storage.sync.get("features")).features || "";
     const data = await (await fetch("/features/features.json")).json();
     for(var feature in data){
         var feature = data[feature];
-        
         var div = document.getElementById('features')
 
         //Get feature data
@@ -14,7 +28,6 @@ async function getFeatures() {
         var featureTitle = featureData.title;
         var featureDescription = featureData.description;
         var featureAuthors = featureData.authors;
-
 
         //Create feature element
         var featureElement = document.createElement("div");
@@ -41,7 +54,6 @@ async function getFeatures() {
         }
 
         authors = authors.join(", ")
-
         featureDescriptionElement.innerHTML = featureDescription + "<br><br>By " + authors
 
         //create feature switch

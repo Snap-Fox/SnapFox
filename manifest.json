@@ -1,7 +1,8 @@
 {
     "manifest_version": 3,
     "name": "SnapFox",
-    "version": "2.0.0",
+    "version": "3.0.0",
+    "version_name": "alpha-3.0.0",
     "description": "SnapFox expands the functionality of Snap!",
     "author": "Daniel4-Scratch",
     "permissions": [
@@ -32,5 +33,11 @@
     "background": {
         "service_worker": "background.js"
     },
-    "host_permissions": ["https://snap.berkeley.edu/"]
+    "content_scripts": [
+        {
+        "matches": ["https://snap.berkeley.edu/*"],
+        "js": ["/api/main.js", "/api/lang.js"]
+        }
+    ],
+    "host_permissions": ["https://snap.berkeley.edu/*"]
 }

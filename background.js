@@ -35,11 +35,28 @@ chrome.tabs.onUpdated.addListener(async function (tabId, info) {
             }
         }
     }
+
+    //api
     console.log("%cSF ","color: white; background:black; border-raidus:0.5em;", "Injected SnapFox API into tab: " + tab.url);
     chrome.scripting.executeScript({
+        
         target : {tabId : tabId},
-        files : ["/api/main.js"],
+        files : ["/api/main.js", "/api/lang.js"],
         world: "MAIN"
     })
 
+    // chrome.scripting
+    //     .registerContentScripts([
+    //         {
+    //         id: "session-script",
+    //         js: ["/api/lang.js"],
+    //         persistAcrossSessions: false,
+    //         matches: ["https://snap.berkeley.edu/*"],
+    //         runAt: "document_start",
+    //         world: "MAIN", // this fails
+    //         },
+    //     ])
+    //     .then(() => console.log("registration complete"))
+    //     .catch((err) => console.warn("unexpected error", err));
+    
 });
